@@ -48,4 +48,51 @@ class ProductController extends BaseController
         $productModel->insert($data);
         return redirect()->to('/products')->with('success', 'Product added successfully');
     }
+
+    public function edit($id)
+    {
+        $productModel = new ProductModel();
+        $warehouseModel = new WarehouseModel();
+
+        $product = $productModel->find($id);
+        if (!$product) {
+            return redirect()->to('/products')->with('error', 'Product not found.');
+        }
+
+        $data['product'] = $product;
+        $data['warehouses'] = $warehouseModel->findAll();
+        return view('products/edit', $data);
+    }
+
+    public function update($id)
+    {
+        $rules = [
+            'name' => 'required|min_length[3]',
+            'sku' => 'required|min_length[3]',
+            'warehouse_id' => 'required|integer',
+            'quantity' => 'required|integer',
+        ];
+
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $productModel = new ProductModel();
+        $data = [
+            'warehouse_id' => $this->request->getPost('warehouse_id'),
+            'name' => $this->request->getPost('name'),
+            'sku' => $this->request->getPost('sku'),
+            'quantity' => $this->request->getPost('quantity')
+        ];
+
+        $productModel->update($id, $data);
+        return redirect()->to('/products')->with('success', 'Product updated successfully');
+    }
+
+    public function delete($id)
+    {
+        $productModel = new ProductModel();
+        $productModel->delete($id);
+        return redirect()->to('/products')->with('success', 'Product deleted successfully');
+    }
 }

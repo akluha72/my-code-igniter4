@@ -39,4 +39,43 @@ class WarehouseController extends BaseController
         $model->save($data);
         return redirect()->to('/')->with('success', 'Warehouse added successfully');
     }
+
+    public function edit($id)
+    {
+        $model = new WarehouseModel();
+        $warehouse = $model->find($id);
+        if (!$warehouse) {
+            return redirect()->to('/warehouses')->with('error', 'Warehouse not found.');
+        }
+
+        $data['warehouse'] = $warehouse;
+        return view('warehouses/edit', $data);
+    }
+
+    public function update($id)
+    {
+        $rules = [
+            'name' => 'required|min_length[3]',
+            'location' => 'required|min_length[3]',
+        ];
+
+        if(!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $model = new WarehouseModel();
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'location' => $this->request->getPost('location'),
+        ];
+        $model->update($id, $data);
+        return redirect()->to('/warehouses')->with('success', 'Warehouse updated successfully');
+    }
+
+    public function delete($id)
+    {
+        $model = new WarehouseModel();
+        $model->delete($id);
+        return redirect()->to('/warehouses')->with('success', 'Warehouse deleted successfully');
+    }
 }
