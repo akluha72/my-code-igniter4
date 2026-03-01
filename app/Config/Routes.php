@@ -13,3 +13,7 @@ $routes->post('/warehouses/store','WarehouseController::store');
 $routes->get('/products','ProductController::index');
 $routes->get('/products/create','ProductController::create');
 $routes->post('/products/store','ProductController::store');
+
+$routes->get('/stocks','StockController::index');
+$routes->get('/stocks/create', 'StockController::create');
+$routes->post('/stocks/store','StockController::store');
