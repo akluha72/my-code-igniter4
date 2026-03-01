@@ -15,17 +15,30 @@
 
         <div class="mb-3">
             <label>Name</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" class="form-control" value="<?= old('name') ?>">
         </div>
 
         <div class="mb-3">
             <label>Location</label>
-            <input type="text" name="location" class="form-control">
+            <input type="text" name="location" class="form-control" value="<?= old('location') ?>">
         </div>
 
         <button class="btn btn-success">Save</button>
     </form>
-
+    <?php if (session()->getFlashdata('errors')): ?>
+        <div class="alert alert-danger">
+            <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                <div>
+                    <?= $error ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
 </body>
 
 </html>
