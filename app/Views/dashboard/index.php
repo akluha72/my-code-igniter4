@@ -42,7 +42,7 @@
                                 <?php endforeach; ?>
                             </ul>
                         <?php else: ?>
-                            <p class="text-success">No low-stock products!</p>
+                            <p >No low-stock products!</p>
                         <?php endif; ?>
                     </div>
             </div>

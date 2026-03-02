@@ -67,8 +67,135 @@ This project is a **mini MVP** suitable for demonstrating your interest and skil
 
 ## Installation
 
+### Manual Installation (Local)
+
 1. Clone the repository:
 
 ```bash
 git clone https://github.com/yourusername/warehouse-mini-dashboard.git
 cd warehouse-mini-dashboard
+```
+
+2. Install PHP dependencies:
+
+```bash
+composer install
+```
+
+3. Copy the environment file and configure it:
+
+```bash
+cp env .env
+```
+
+Edit `.env` and set the following values:
+
+```ini
+CI_ENVIRONMENT = development
+
+database.default.hostname = 127.0.0.1
+database.default.database = ci4
+database.default.username = root
+database.default.password = root
+database.default.DBDriver = MySQLi
+database.default.port     = 3306
+```
+
+4. Run database migrations and seeders:
+
+```bash
+php spark migrate
+php spark db:seed DatabaseSeeder
+```
+
+5. Start the built-in development server:
+
+```bash
+php spark serve
+```
+
+The application will be available at `http://localhost:8080`.
+
+---
+
+## Running with Docker
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/get-started) installed
+- [Docker Compose](https://docs.docker.com/compose/install/) installed
+
+### Steps
+
+1. Clone the repository (if not already done):
+
+```bash
+git clone https://github.com/yourusername/warehouse-mini-dashboard.git
+cd warehouse-mini-dashboard
+```
+
+2. Copy the environment file:
+
+```bash
+cp env .env
+```
+
+3. Update `.env` to use the Docker database service:
+
+```ini
+CI_ENVIRONMENT = development
+
+database.default.hostname = db
+database.default.database = ci4
+database.default.username = root
+database.default.password = root
+database.default.DBDriver = MySQLi
+database.default.port     = 3306
+```
+
+> **Note:** The hostname must be `db` (the Docker Compose service name), not `127.0.0.1`.
+
+4. Build and start the containers:
+
+```bash
+docker-compose up -d --build
+```
+
+This will start two containers:
+
+| Container | Service | Exposed Port |
+|-----------|---------|--------------|
+| `ci4_app` | Apache  | `8080 → 80`  |
+| `ci4_db`  | MySQL   | `3307 → 3306`|
+
+5. Run database migrations inside the app container:
+
+```bash
+docker exec -it ci4_app php spark migrate
+docker exec -it ci4_app php spark db:seed DatabaseSeeder
+```
+
+6. Open your browser and visit:
+
+```
+http://localhost:8080
+```
+
+### Useful Docker Commands
+
+```bash
+# Stop containers
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Restart containers
+docker-compose restart
+
+# Access the app container shell
+docker exec -it ci4_app bash
+
+# Access MySQL inside the db container
+docker exec -it ci4_db mysql -u root -proot ci4
+```
