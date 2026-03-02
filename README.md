@@ -1,14 +1,12 @@
 # Warehouse Mini Dashboard (CodeIgniter 4)
 
-A simple **warehouse management mini-project** built with **CodeIgniter 4**, **MySQL**, and **Bootstrap**, demonstrating basic virtual warehouse operations including:  
+A **warehouse management mini-project** built with **CodeIgniter 4**, **MySQL**, and **Bootstrap**, demonstrating basic virtual warehouse operations including:  
 
 - Product management  
 - Stock movements (IN/OUT)  
 - Low-stock alerts  
 - Warehouse summaries  
 - Recent stock movements dashboard  
-
-This project is a **mini MVP** suitable for demonstrating your interest and skills in logistics software, ideal for interview purposes.  
 
 ---
 
@@ -33,38 +31,6 @@ This project is a **mini MVP** suitable for demonstrating your interest and skil
 
 ---
 
-## Database Structure
-
-### Tables
-
-**products**
-| Field        | Type        | Notes |
-|--------------|------------|------|
-| id           | INT        | Primary key, auto-increment |
-| name         | VARCHAR    | Product name |
-| quantity     | INT        | Current stock quantity |
-| warehouse_id | INT        | Foreign key to warehouses table |
-| created_at   | DATETIME   | CI4 timestamp |
-| updated_at   | DATETIME   | CI4 timestamp |
-
-**stock_movements**
-| Field      | Type      | Notes |
-|------------|-----------|------|
-| id         | INT       | Primary key, auto-increment |
-| product_id | INT       | Foreign key to products |
-| type       | ENUM      | IN / OUT |
-| quantity   | INT       | Movement quantity |
-| created_at | DATETIME  | CI4 timestamp |
-| updated    | DATETIME  | Optional updated timestamp |
-
-**warehouses**
-| Field      | Type      | Notes |
-|------------|-----------|------|
-| id         | INT       | Primary key |
-| name       | VARCHAR   | Warehouse name |
-
----
-
 ## Installation
 
 ### Manual Installation (Local)
@@ -72,7 +38,7 @@ This project is a **mini MVP** suitable for demonstrating your interest and skil
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/warehouse-mini-dashboard.git
+git clone https://github.com/akluha72/my-code-igniter4
 cd warehouse-mini-dashboard
 ```
 
